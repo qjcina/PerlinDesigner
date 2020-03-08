@@ -2,8 +2,8 @@
 
 #include <QPainter>
 
-#include "../IImageData.h"
-#include "../OctaveSettings/OctavesManager.h"
+#include "IImageData.h"
+#include "OctaveSettings/OctavesManager.h"
 
 ImagePainter::ImagePainter()
 {

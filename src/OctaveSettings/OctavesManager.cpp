@@ -1,7 +1,7 @@
 #include "OctavesManager.h"
 #include "OctaveSettingsEntry.h"
 
-#include "../PerlinData.h"
+#include "PerlinData.h"
 
 OctavesManager& OctavesManager::getInstance()
 {

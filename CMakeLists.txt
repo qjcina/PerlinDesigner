@@ -13,15 +13,49 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 find_package(Qt5 COMPONENTS Core Quick REQUIRED)
 
+set(HEADER_FILES
+    src/GUI/IImagePainter.h
+    src/GUI/ImagePainter.h
+
+    src/NoiseGen/IImageData.h
+    src/NoiseGen/INoiseOctave.h
+    src/NoiseGen/NoiseIterator.h
+    src/NoiseGen/PerlinData.h
+    src/NoiseGen/PerlinOctave.h
+
+    src/OctaveSettings/IOctaveSetting.h
+    src/OctaveSettings/OctaveSettingsEntry.h
+    src/OctaveSettings/OctavesManager.h
+
+    src/Utils/QMLPointer.h
+
+    src/CommonTypes.h
+)
+
+set(SOURCE_FILES
+    src/main.cpp
+
+    src/GUI/qml.qrc
+    src/GUI/ImagePainter.cpp
+
+    src/NoiseGen/PerlinData.cpp
+    src/NoiseGen/PerlinOctave.cpp
+    src/NoiseGen/NoiseIterator.cpp
+
+    src/OctaveSettings/OctavesManager.cpp
+    src/OctaveSettings/OctaveSettingsEntry.cpp
+)
+
 add_executable(PerlinDesigner
-  src/main.cpp
-  src/GUI/qml.qrc
-  src/GUI/ImagePainter.cpp
-  src/OctaveSettings/OctavesManager.cpp
-  src/OctaveSettings/OctaveSettingsEntry.cpp
-  src/NoiseGen/PerlinData.cpp
-  src/NoiseGen/PerlinOctave.cpp
-  src/NoiseGen/NoiseIterator.cpp
+    ${SOURCE_FILES}
+    ${HEADER_FILES}
+)
+
+target_include_directories(PerlinDesigner PRIVATE
+    src/
+    src/GUI
+    src/NoiseGen
+    src/OctaveSettings
 )
 
 target_compile_definitions(PerlinDesigner

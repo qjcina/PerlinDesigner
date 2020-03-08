@@ -1,9 +1,9 @@
 #pragma once
 
-#include "../GUI/IImagePainter.h"
-#include "../IImageData.h"
-#include "../Utils/QMLPointer.h"
+#include "GUI/IImagePainter.h"
+#include "IImageData.h"
 #include "IOctaveSetting.h"
+#include "Utils/QMLPointer.h"
 
 #include <functional>
 #include <list>
