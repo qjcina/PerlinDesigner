@@ -1,11 +1,19 @@
 import QtQuick 2.14
 import QtQuick.Controls 2.14
 
+import OctaveSettingsEntry 1.0
+
 Rectangle {
     id: root
 
-    readonly property real elementWidth: width * 0.98
+    readonly property real elementWidth: width * 0.95
     readonly property real elementHeight: width * 0.16
+
+    OctaveSettingsEntry {
+        id: octaveSettings
+        algorithm: algorithmField.text
+        color: colorField.text
+    }
 
     color: "transparent"
     border.color: "#20000000"
@@ -28,6 +36,16 @@ Rectangle {
             height: elementHeight
 
             background: Item {}
+
+            Rectangle {
+                height: elementHeight * 0.5
+                width: height
+                anchors.right: colorField.right
+                anchors.verticalCenter: colorField.verticalCenter
+                color: "red"
+
+                visible: !octaveSettings.isColorValid
+            }
         }
 
         TextArea {
