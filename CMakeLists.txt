@@ -17,11 +17,11 @@ add_executable(PerlinDesigner
   src/main.cpp
   src/GUI/qml.qrc
   src/GUI/ImagePainter.cpp
-  src/OctaveSettings/OctaveSettingsList.cpp
+  src/OctaveSettings/OctavesManager.cpp
   src/OctaveSettings/OctaveSettingsEntry.cpp
-  src/PerlinData.cpp
-  src/PerlinOctave.cpp
-  src/NoiseIterator.cpp
+  src/NoiseGen/PerlinData.cpp
+  src/NoiseGen/PerlinOctave.cpp
+  src/NoiseGen/NoiseIterator.cpp
 )
 
 target_compile_definitions(PerlinDesigner

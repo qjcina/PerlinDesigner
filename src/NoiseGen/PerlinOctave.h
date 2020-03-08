@@ -12,7 +12,12 @@ public:
 
     NoiseIterator begin() const override;
 
+    void setColor(const QColor& color) override;
+    void setValue(const Coordinates position, const float value) override;
+
 private:
+    size_t getIndex(const Coordinates& position) const;
+
     QColor mColor;
     PerlinNoise::ValuesArray mValues;
 };

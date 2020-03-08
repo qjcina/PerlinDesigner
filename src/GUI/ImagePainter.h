@@ -1,11 +1,13 @@
 #pragma once
 
+#include "IImagePainter.h"
+
 #include <QImage>
 #include <QQuickPaintedItem>
 
 class IImageData;
 
-class ImagePainter : public QQuickPaintedItem {
+class ImagePainter : public IImagePainter {
 public:
     ImagePainter();
     void paint(QPainter* painter) override;

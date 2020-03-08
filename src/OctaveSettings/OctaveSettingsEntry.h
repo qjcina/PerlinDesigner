@@ -1,8 +1,10 @@
 #pragma once
 
+#include "IOctaveSetting.h"
+
 #include <QQuickItem>
 
-class OctaveSettingsEntry : public QQuickItem {
+class OctaveSettingsEntry : public QQuickItem, public IOctaveSetting {
     Q_OBJECT
     Q_PROPERTY(QString color READ getColorString WRITE setColor NOTIFY colorChanged)
     Q_PROPERTY(QString algorithm MEMBER mAlgorithm WRITE setAlgorithm NOTIFY algorithmChanged)
@@ -14,7 +16,7 @@ public:
     ~OctaveSettingsEntry();
 
     QString getColorString() const;
-    const QColor& getColor() const;
+    const QColor& getColor() const override;
     void setColor(const QString& colorString);
 
     void setAlgorithm(const QString& algorithm);

@@ -1,17 +1,17 @@
 #include "OctaveSettingsEntry.h"
 
-#include "OctaveSettingsList.h"
+#include "OctavesManager.h"
 
 #include <QDebug>
 
 OctaveSettingsEntry::OctaveSettingsEntry()
 {
-    OctaveSettingsList::getInstance().add(*this);
+    OctavesManager::getInstance().add(*this);
 }
 
 OctaveSettingsEntry::~OctaveSettingsEntry()
 {
-    OctaveSettingsList::getInstance().remove(*this);
+    OctavesManager::getInstance().remove(*this);
 }
 
 QString OctaveSettingsEntry::getColorString() const

@@ -3,8 +3,11 @@
 #include <QPainter>
 
 #include "../IImageData.h"
+#include "../OctaveSettings/OctavesManager.h"
 
-ImagePainter::ImagePainter() = default;
+ImagePainter::ImagePainter()
+{
+}
 
 void ImagePainter::paint(QPainter* painter)
 {
