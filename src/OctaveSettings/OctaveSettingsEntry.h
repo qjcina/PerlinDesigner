@@ -2,15 +2,10 @@
 
 #include "IOctaveSetting.h"
 
-#include <QQuickItem>
+#include <QColor>
+#include <QObject>
 
-class OctaveSettingsEntry : public QQuickItem, public IOctaveSetting {
-    Q_OBJECT
-    Q_PROPERTY(QString color READ getColorString WRITE setColor NOTIFY colorChanged)
-    Q_PROPERTY(QString algorithm MEMBER mAlgorithm WRITE setAlgorithm NOTIFY algorithmChanged)
-    Q_PROPERTY(bool isColorValid READ isColorValid NOTIFY colorChanged)
-    Q_PROPERTY(bool isAlgorithmValid READ isAlgorithmValid NOTIFY colorChanged)
-
+class OctaveSettingsEntry : public IOctaveSetting {
 public:
     OctaveSettingsEntry();
     ~OctaveSettingsEntry();
@@ -20,6 +15,7 @@ public:
     void setColor(const QString& colorString);
 
     void setAlgorithm(const QString& algorithm);
+    QString getAlgorithm() const;
 
     bool isColorValid() const;
     bool isAlgorithmValid() const;

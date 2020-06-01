@@ -1,18 +1,10 @@
 #include "OctaveSettingsEntry.h"
 
-#include "OctavesManager.h"
-
 #include <QDebug>
 
-OctaveSettingsEntry::OctaveSettingsEntry()
-{
-    OctavesManager::getInstance().add(QMLPointer(this));
-}
+OctaveSettingsEntry::OctaveSettingsEntry() = default;
 
-OctaveSettingsEntry::~OctaveSettingsEntry()
-{
-    OctavesManager::getInstance().remove(QMLPointer(this));
-}
+OctaveSettingsEntry::~OctaveSettingsEntry() = default;
 
 QString OctaveSettingsEntry::getColorString() const
 {
@@ -26,15 +18,17 @@ const QColor& OctaveSettingsEntry::getColor() const
 
 void OctaveSettingsEntry::setColor(const QString& colorString)
 {
-    if (mColor != colorString) {
-        mColor = colorString;
-        emit colorChanged();
-    }
+    mColor = colorString;
 }
 
 void OctaveSettingsEntry::setAlgorithm(const QString& algorithm)
 {
     // TODO algorithm
+}
+
+QString OctaveSettingsEntry::getAlgorithm() const
+{
+    return "dupa";
 }
 
 bool OctaveSettingsEntry::isColorValid() const

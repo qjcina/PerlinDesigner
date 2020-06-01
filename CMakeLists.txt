@@ -25,17 +25,13 @@ set(HEADER_FILES
 
     src/OctaveSettings/IOctaveSetting.h
     src/OctaveSettings/OctaveSettingsEntry.h
-    src/OctaveSettings/OctavesManager.h
     src/OctaveSettings/PerlinDataFactory.h
+
+    src/Models/OctavesModel.h
 
     src/Utils/QMLPointer.h
 
     src/CommonTypes.h
-
-    src/EventEngine/EventEngine.h
-    src/EventEngine/EventListener.h
-    src/EventEngine/EventThread.h
-    src/EventEngine/Event.h
 )
 
 set(SOURCE_FILES
@@ -48,13 +44,10 @@ set(SOURCE_FILES
     src/NoiseGen/PerlinOctave.cpp
     src/NoiseGen/NoiseIterator.cpp
 
-    src/OctaveSettings/OctavesManager.cpp
     src/OctaveSettings/OctaveSettingsEntry.cpp
     src/OctaveSettings/PerlinDataFactory.cpp
 
-    src/EventEngine/EventEngine.cpp
-    src/EventEngine/EventListener.cpp
-    src/EventEngine/EventThread.cpp
+    src/Models/OctavesModel.cpp
 )
 
 add_executable(PerlinDesigner
