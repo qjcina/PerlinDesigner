@@ -28,6 +28,8 @@ set(HEADER_FILES
     src/OctaveSettings/OctavesManager.h
     src/OctaveSettings/PerlinDataFactory.h
 
+    src/Models/OctavesModel.h
+
     src/Utils/QMLPointer.h
 
     src/CommonTypes.h
@@ -51,6 +53,8 @@ set(SOURCE_FILES
     src/OctaveSettings/OctavesManager.cpp
     src/OctaveSettings/OctaveSettingsEntry.cpp
     src/OctaveSettings/PerlinDataFactory.cpp
+
+    src/Models/OctavesModel.cpp
 
     src/EventEngine/EventEngine.cpp
     src/EventEngine/EventListener.cpp
