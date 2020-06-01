@@ -23,12 +23,12 @@ void OctaveSettingsEntry::setColor(const QString& colorString)
 
 void OctaveSettingsEntry::setAlgorithm(const QString& algorithm)
 {
-    // TODO algorithm
+    mAlgorithm = algorithm;
 }
 
 QString OctaveSettingsEntry::getAlgorithm() const
 {
-    return "dupa";
+    return mAlgorithm;
 }
 
 bool OctaveSettingsEntry::isColorValid() const
