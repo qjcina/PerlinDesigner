@@ -1,7 +1,7 @@
 #include "OctavesManager.h"
 #include "OctaveSettingsEntry.h"
 
-#include "PerlinData.h"
+#include "NoiseGen/PerlinData.h"
 
 OctavesManager& OctavesManager::getInstance()
 {
@@ -9,17 +9,17 @@ OctavesManager& OctavesManager::getInstance()
     return instance;
 }
 
-void OctavesManager::add(const OctaveSettingsEntry& octave)
+void OctavesManager::add(QMLPointer<OctaveSettingsEntry>&& octave)
 {
     mOctavesSettings.push_back(octave);
     refreshImage();
 }
 
-void OctavesManager::remove(const OctaveSettingsEntry& octave)
+void OctavesManager::remove(const QMLPointer<OctaveSettingsEntry>& octave)
 {
     mOctavesSettings.erase(std::remove_if(mOctavesSettings.begin(), mOctavesSettings.end(),
-        [&](const std::reference_wrapper<const OctaveSettingsEntry> setting) -> bool {
-            return &setting.get() == &octave;
+        [&](const QMLPointer<OctaveSettingsEntry>& setting) -> bool {
+            return setting == octave;
         }));
     refreshImage();
 }
@@ -31,10 +31,8 @@ void OctavesManager::setPainter(QMLPointer<IImagePainter> painter)
 
 void OctavesManager::refreshImage()
 {
-    qDebug() << "Refreshing";
-    PerlinData data;
-    if (mPainter.isValid())
-        mPainter->setImage(data);
+    //    if (mPainter.isValid())
+    //        mPainter->setImage(data);
 }
 
 OctavesManager::OctavesManager()

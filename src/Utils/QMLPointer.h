@@ -19,10 +19,27 @@ public:
 
     QMLPointer() = default;
 
+    template <class OtherT>
+    QMLPointer(const QMLPointer<OtherT> other)
+    {
+        mItem = dynamic_cast<T*>(*other);
+    }
+
+    T* operator*() const
+    {
+        return mItem;
+    }
+
     T* operator->() const
     {
         return mItem;
     }
+
+    bool operator==(const QMLPointer<T>& rhs) const
+    {
+        return mItem == rhs.mItem;
+    }
+
     bool isValid() const
     {
         return mItem != nullptr;

@@ -1,8 +1,10 @@
 #pragma once
 
+#include "CommonTypes.h"
 #include "GUI/IImagePainter.h"
-#include "IImageData.h"
 #include "IOctaveSetting.h"
+#include "NoiseGen/IImageData.h"
+#include "PerlinDataFactory.h"
 #include "Utils/QMLPointer.h"
 
 #include <functional>
@@ -12,13 +14,13 @@
 class OctaveSettingsEntry;
 
 class OctavesManager {
-    using List = std::list<std::reference_wrapper<const OctaveSettingsEntry>>;
+    using SettingsList = std::vector<QMLPointer<OctaveSettingsEntry>>;
 
 public:
     static OctavesManager& getInstance();
 
-    void add(const OctaveSettingsEntry& octave);
-    void remove(const OctaveSettingsEntry& octave);
+    void add(QMLPointer<OctaveSettingsEntry>&& octave);
+    void remove(const QMLPointer<OctaveSettingsEntry>& octave);
 
     void setPainter(QMLPointer<IImagePainter> painter);
 
@@ -27,6 +29,7 @@ private:
 
     void refreshImage();
 
-    List mOctavesSettings;
+    SettingsList mOctavesSettings;
     QMLPointer<IImagePainter> mPainter;
+    PerlinDataFactory mFactory;
 };

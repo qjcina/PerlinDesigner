@@ -6,12 +6,12 @@
 
 OctaveSettingsEntry::OctaveSettingsEntry()
 {
-    OctavesManager::getInstance().add(*this);
+    OctavesManager::getInstance().add(QMLPointer(this));
 }
 
 OctaveSettingsEntry::~OctaveSettingsEntry()
 {
-    OctavesManager::getInstance().remove(*this);
+    OctavesManager::getInstance().remove(QMLPointer(this));
 }
 
 QString OctaveSettingsEntry::getColorString() const

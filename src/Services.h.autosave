@@ -1,0 +1,12 @@
+#pragma once
+
+class Services {
+public:
+    Services();
+    
+    template<class ServiceType>
+    void setUpService(ServiceType service)
+    {
+        
+    }
+};

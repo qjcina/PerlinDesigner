@@ -2,11 +2,12 @@
 
 #include <QPainter>
 
-#include "IImageData.h"
+#include "NoiseGen/IImageData.h"
 #include "OctaveSettings/OctavesManager.h"
 
 ImagePainter::ImagePainter()
 {
+    OctavesManager::getInstance().setPainter(QMLPointer(this));
 }
 
 void ImagePainter::paint(QPainter* painter)
