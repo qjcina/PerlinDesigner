@@ -1,7 +1,7 @@
 import QtQuick 2.14
 import QtQuick.Controls 2.14
 
-import OctaveSettingsEntry 1.0
+import OctavesModel 1.0
 
 Rectangle {
     id: root
@@ -9,11 +9,7 @@ Rectangle {
     readonly property real elementWidth: width * 0.95
     readonly property real elementHeight: width * 0.16
 
-    OctaveSettingsEntry {
-        id: octaveSettings
-        algorithm: algorithmField.text
-        color: colorField.text
-    }
+    property bool isOctaveColorValid: true
 
     color: "transparent"
     border.color: "#20000000"
@@ -35,6 +31,8 @@ Rectangle {
             width: elementWidth
             height: elementHeight
 
+            onEditingFinished: OctavesModelInstance.setOctaveData(index, OctavesModel.Color, text);
+
             background: Item {}
 
             Rectangle {
@@ -44,7 +42,7 @@ Rectangle {
                 anchors.verticalCenter: colorField.verticalCenter
                 color: "red"
 
-                visible: !octaveSettings.isColorValid
+                visible: !root.isOctaveColorValid
             }
         }
 
@@ -54,6 +52,8 @@ Rectangle {
 
             width: elementWidth
             height: elementHeight * 3
+
+            onEditingFinished: OctavesModelInstance.setOctaveData(index, OctavesModel.Algorihm, text);
 
             background: Item {}
         }

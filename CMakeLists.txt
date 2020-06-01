@@ -25,7 +25,6 @@ set(HEADER_FILES
 
     src/OctaveSettings/IOctaveSetting.h
     src/OctaveSettings/OctaveSettingsEntry.h
-    src/OctaveSettings/OctavesManager.h
     src/OctaveSettings/PerlinDataFactory.h
 
     src/Models/OctavesModel.h
@@ -50,7 +49,6 @@ set(SOURCE_FILES
     src/NoiseGen/PerlinOctave.cpp
     src/NoiseGen/NoiseIterator.cpp
 
-    src/OctaveSettings/OctavesManager.cpp
     src/OctaveSettings/OctaveSettingsEntry.cpp
     src/OctaveSettings/PerlinDataFactory.cpp
 

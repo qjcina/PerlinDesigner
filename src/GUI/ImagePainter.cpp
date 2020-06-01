@@ -3,12 +3,8 @@
 #include <QPainter>
 
 #include "NoiseGen/IImageData.h"
-#include "OctaveSettings/OctavesManager.h"
 
-ImagePainter::ImagePainter()
-{
-    OctavesManager::getInstance().setPainter(QMLPointer(this));
-}
+ImagePainter::ImagePainter() = default;
 
 void ImagePainter::paint(QPainter* painter)
 {

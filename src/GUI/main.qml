@@ -46,12 +46,14 @@ Window {
             anchors.bottom: octavesControls.top
             anchors.margins: rightColumn.width * 0.05
 
-            model: 1
+            model: OctavesModelInstance
 
             clip: true
 
             delegate: OctaveSettings {
                 width: octaves.width
+
+                isOctaveColorValid: r_ColorValid
             }
         }
 
@@ -72,7 +74,7 @@ Window {
                 height: octavesControls.height
 
                 onClicked: {
-                    octaves.model++
+                    OctavesModelInstance.addOctave();
                 }
             }
 
@@ -82,8 +84,7 @@ Window {
                 height: octavesControls.height
 
                 onClicked: {
-                    if(octaves.model > 0)
-                        octaves.model--
+                    OctavesModelInstance.removeOctave();
                 }
             }
         }

@@ -1,7 +1,9 @@
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
+#include <QQmlContext>
 
 #include "GUI/ImagePainter.h"
+#include "Models/OctavesModel.h"
 #include "OctaveSettings/OctaveSettingsEntry.h"
 
 int main(int argc, char* argv[])
@@ -11,7 +13,7 @@ int main(int argc, char* argv[])
     QGuiApplication app(argc, argv);
 
     qmlRegisterType<ImagePainter>("ImagePainter", 1, 0, "ImagePainter");
-    qmlRegisterType<OctaveSettingsEntry>("OctaveSettingsEntry", 1, 0, "OctaveSettingsEntry");
+    qmlRegisterType<OctavesModel>("OctavesModel", 1, 0, "OctavesModel");
 
     QQmlApplicationEngine engine;
     const QUrl url(QStringLiteral("qrc:/main.qml"));
@@ -22,6 +24,8 @@ int main(int argc, char* argv[])
                 QCoreApplication::exit(-1);
         },
         Qt::QueuedConnection);
+
+    engine.rootContext()->setContextProperty("OctavesModelInstance", new OctavesModel());
     engine.load(url);
 
     return app.exec();

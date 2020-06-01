@@ -1,10 +1,13 @@
 #pragma once
 
+#include "OctaveSettings/OctaveSettingsEntry.h"
 #include <QAbstractListModel>
 
-class PerlinOctave;
-
 class OctavesModel : public QAbstractListModel {
+    Q_OBJECT
+
+    static constexpr const qint32 MAX_OCTAVES = 128;
+
 public:
     OctavesModel();
 
@@ -13,12 +16,21 @@ public:
     QHash<int, QByteArray> roleNames() const override;
 
     enum class OctavesModelRoles {
-
+        Algorihm = Qt::UserRole,
+        AlgorithmValid,
+        Color,
+        ColorValid
     };
+
+    Q_ENUM(OctavesModelRoles)
 
     Q_INVOKABLE void addOctave();
     Q_INVOKABLE void removeOctave();
+    Q_INVOKABLE void setOctaveData(qint32 octaveIndex, const OctavesModelRoles& role, const QString& value);
 
 private:
-    std::vector<PerlinOctave> mOctaves;
+    bool isValidIndex(qint32 index) const;
+    void dataChanged(const QModelIndex& modelIndex, const std::initializer_list<OctavesModelRoles>& modelRoles);
+
+    std::vector<OctaveSettingsEntry> mOctaves;
 };
