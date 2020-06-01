@@ -32,11 +32,6 @@ set(HEADER_FILES
     src/Utils/QMLPointer.h
 
     src/CommonTypes.h
-
-    src/EventEngine/EventEngine.h
-    src/EventEngine/EventListener.h
-    src/EventEngine/EventThread.h
-    src/EventEngine/Event.h
 )
 
 set(SOURCE_FILES
@@ -53,10 +48,6 @@ set(SOURCE_FILES
     src/OctaveSettings/PerlinDataFactory.cpp
 
     src/Models/OctavesModel.cpp
-
-    src/EventEngine/EventEngine.cpp
-    src/EventEngine/EventListener.cpp
-    src/EventEngine/EventThread.cpp
 )
 
 add_executable(PerlinDesigner
