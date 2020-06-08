@@ -10,9 +10,10 @@ class IImageData;
 class ImagePainter : public IImagePainter {
 public:
     ImagePainter();
+
     void paint(QPainter* painter) override;
 
-    void setImage(const IImageData& imageData);
+    void setImage(QImage&& imageData) override;
 
 private:
     QImage mImage;

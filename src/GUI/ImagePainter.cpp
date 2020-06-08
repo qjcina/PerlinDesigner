@@ -2,9 +2,13 @@
 
 #include <QPainter>
 
+#include "ImagePainterManager.h"
 #include "NoiseGen/IImageData.h"
 
-ImagePainter::ImagePainter() = default;
+ImagePainter::ImagePainter()
+{
+    ImagePainterManager::instance()->registerPainter(QMLPointer(this));
+}
 
 void ImagePainter::paint(QPainter* painter)
 {
@@ -16,11 +20,12 @@ void ImagePainter::paint(QPainter* painter)
     } else {
         painter->drawImage(boundingRect(), mImage, mImage.rect(),
             Qt::NoFormatConversion);
+        qDebug() << mImage;
     }
 }
 
-void ImagePainter::setImage(const IImageData& imageData)
+void ImagePainter::setImage(QImage&& imageData)
 {
-    mImage = imageData;
+    mImage = std::move(imageData);
     update();
 }

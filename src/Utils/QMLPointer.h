@@ -27,10 +27,15 @@ public:
 
     T* operator*() const
     {
-        return mItem;
+        return get();
     }
 
     T* operator->() const
+    {
+        return mItem;
+    }
+
+    T* get() const
     {
         return mItem;
     }
@@ -43,6 +48,11 @@ public:
     bool isValid() const
     {
         return mItem != nullptr;
+    }
+
+    operator bool() const
+    {
+        return isValid();
     }
 
 private:

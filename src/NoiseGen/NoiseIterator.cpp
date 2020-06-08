@@ -23,3 +23,13 @@ QColor NoiseIterator::operator*() const
     float value = mValues[mIndex];
     return QColor(value * mColor.red(), value * mColor.green(), value * mColor.blue());
 }
+
+bool NoiseIterator::operator==(const NoiseIterator& other) const
+{
+    return other.mValues.data() == mValues.data() && other.mIndex == mIndex;
+}
+
+bool NoiseIterator::operator!=(const NoiseIterator& other) const
+{
+    return !operator==(other);
+}

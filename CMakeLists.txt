@@ -16,20 +16,30 @@ find_package(Qt5 COMPONENTS Core Quick REQUIRED)
 set(HEADER_FILES
     src/GUI/IImagePainter.h
     src/GUI/ImagePainter.h
+    src/GUI/ImagePainterManager.h
+    src/GUI/ImagePainterAdapter.h
+
+    src/NoiseGen/AverageValueNoiseData.h
+    src/NoiseGen/Octave2D.h
 
     src/NoiseGen/IImageData.h
     src/NoiseGen/INoiseOctave.h
+    src/NoiseGen/INoiseAlgorithm.h
+    src/NoiseGen/INoiseCoordinate.h
     src/NoiseGen/NoiseIterator.h
-    src/NoiseGen/PerlinData.h
-    src/NoiseGen/PerlinOctave.h
+    src/NoiseGen/NoiseCoordinate.h
+    src/NoiseGen/NoiseAlgorithm.h
 
     src/OctaveSettings/IOctaveSetting.h
+    src/OctaveSettings/IDataFactory.h
     src/OctaveSettings/OctaveSettingsEntry.h
     src/OctaveSettings/PerlinDataFactory.h
 
     src/Models/OctavesModel.h
+    src/Models/IOctavesModel.h
 
     src/Utils/QMLPointer.h
+    src/Utils/AbstractSingleton.h
 
     src/CommonTypes.h
 )
@@ -39,10 +49,15 @@ set(SOURCE_FILES
 
     src/GUI/qml.qrc
     src/GUI/ImagePainter.cpp
+    src/GUI/ImagePainterManager.cpp
+    src/GUI/ImagePainterAdapter.cpp
 
-    src/NoiseGen/PerlinData.cpp
-    src/NoiseGen/PerlinOctave.cpp
+    src/NoiseGen/AverageValueNoiseData.cpp
+    src/NoiseGen/Octave2D.cpp
+
     src/NoiseGen/NoiseIterator.cpp
+    src/NoiseGen/NoiseCoordinate.cpp
+    src/NoiseGen/NoiseAlgorithm.cpp
 
     src/OctaveSettings/OctaveSettingsEntry.cpp
     src/OctaveSettings/PerlinDataFactory.cpp
