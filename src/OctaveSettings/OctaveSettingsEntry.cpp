@@ -2,6 +2,9 @@
 
 #include <QDebug>
 
+#include "NoiseGen/INoiseAlgorithm.h"
+#include "NoiseGen/NoiseAlgorithm.h"
+
 OctaveSettingsEntry::OctaveSettingsEntry() = default;
 
 OctaveSettingsEntry::~OctaveSettingsEntry() = default;
@@ -23,10 +26,11 @@ void OctaveSettingsEntry::setColor(const QString& colorString)
 
 void OctaveSettingsEntry::setAlgorithm(const QString& algorithm)
 {
-    mAlgorithm = algorithm;
+    // Introduce different noise algorithm calculators
+    mAlgorithm = std::make_shared<NoiseAlgorithm>(algorithm);
 }
 
-QString OctaveSettingsEntry::getAlgorithm() const
+const std::shared_ptr<INoiseAlgorithm> OctaveSettingsEntry::getAlgorithm() const
 {
     return mAlgorithm;
 }

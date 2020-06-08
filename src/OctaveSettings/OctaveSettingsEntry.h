@@ -4,6 +4,7 @@
 
 #include <QColor>
 #include <QObject>
+#include <memory>
 
 class OctaveSettingsEntry : public IOctaveSetting {
 public:
@@ -15,7 +16,7 @@ public:
     void setColor(const QString& colorString);
 
     void setAlgorithm(const QString& algorithm);
-    QString getAlgorithm() const;
+    const std::shared_ptr<INoiseAlgorithm> getAlgorithm() const override;
 
     bool isColorValid() const;
     bool isAlgorithmValid() const;
@@ -26,6 +27,6 @@ signals:
 
 private:
     QColor mColor;
-    QString mAlgorithm;
+    std::shared_ptr<INoiseAlgorithm> mAlgorithm;
     bool mIsAlgorithmValid = true;
 };

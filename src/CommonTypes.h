@@ -18,6 +18,4 @@ class OctaveSettingsEntry;
 
 namespace OctaveData {
 
-using List = std::list<std::reference_wrapper<const OctaveSettingsEntry>>;
-
 }

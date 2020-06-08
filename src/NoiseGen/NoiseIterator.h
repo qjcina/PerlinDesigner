@@ -1,7 +1,8 @@
 #pragma once
 
 #include "CommonTypes.h"
-#include "PerlinData.h"
+
+#include <QColor>
 
 class NoiseIterator {
 public:

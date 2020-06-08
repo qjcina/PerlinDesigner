@@ -1,7 +1,10 @@
 #include "PerlinDataFactory.h"
 
-#include "NoiseGen/PerlinData.h"
-#include "NoiseGen/PerlinOctave.h"
+#include "NoiseGen/AverageValueNoiseData.h"
+#include "NoiseGen/INoiseAlgorithm.h"
+#include "NoiseGen/Octave2D.h"
+
+#include "NoiseGen/NoiseCoordinate.h"
 
 PerlinDataFactory::PerlinDataFactory()
 {
@@ -9,12 +12,20 @@ PerlinDataFactory::PerlinDataFactory()
 
 std::unique_ptr<IImageData> PerlinDataFactory::getData(const std::vector<OctaveSettingsEntry>& octavesSettings) const
 {
-    auto perlinData = std::make_unique<PerlinData>();
+    auto noiseData = std::make_unique<AverageValueNoiseData>();
 
     for (const auto& octaveSettings : octavesSettings) {
-        PerlinOctave octave;
+        Octave2D octave;
         octave.setColor(octaveSettings.getColor());
+        NoiseCoordinate coordinate;
+        const auto octaveAlgorithm = octaveSettings.getAlgorithm();
+        do {
+            octave.setValue(coordinate, octaveAlgorithm->getValue(coordinate));
 
-        perlinData->addOctave(octave);
+        } while (coordinate.hasNext());
+
+        noiseData->addOctave(octave);
     }
+
+    return noiseData;
 }

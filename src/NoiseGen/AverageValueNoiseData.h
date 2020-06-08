@@ -1,16 +1,16 @@
 #pragma once
 
 #include "CommonTypes.h"
-#include "IImageData.h"
+#include "NoiseGen/IImageData.h"
 #include <QColor>
 #include <array>
 #include <cstdint>
 
 class INoiseOctave;
 
-class PerlinData : public IImageData {
+class AverageValueNoiseData : public IImageData {
 public:
-    PerlinData();
+    AverageValueNoiseData();
 
     QImage getImage() const override;
     operator QImage() const override;

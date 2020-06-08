@@ -4,20 +4,18 @@
 #include <array>
 
 #include "CommonTypes.h"
-#include "INoiseOctave.h"
+#include "NoiseGen/INoiseOctave.h"
 
-class PerlinOctave : public INoiseOctave {
+class Octave2D : public INoiseOctave {
 public:
-    PerlinOctave();
+    Octave2D();
 
     NoiseIterator begin() const override;
 
     void setColor(const QColor& color) override;
-    void setValue(const Coordinates position, const float value) override;
+    void setValue(const NoiseCoordinate& position, const float value) override;
 
 private:
-    size_t getIndex(const Coordinates& position) const;
-
     QColor mColor;
     PerlinNoise::ValuesArray mValues;
 };

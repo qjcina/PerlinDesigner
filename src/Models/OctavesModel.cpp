@@ -1,5 +1,6 @@
 #include "OctavesModel.h"
 
+#include "NoiseGen/INoiseAlgorithm.h"
 #include <QDebug>
 
 OctavesModel::OctavesModel()
@@ -20,7 +21,7 @@ QVariant OctavesModel::data(const QModelIndex& index, int role) const
 
     switch (static_cast<OctavesModel::OctavesModelRoles>(role)) {
     case OctavesModelRoles::Algorihm:
-        return element.getAlgorithm();
+        return static_cast<QString>(*element.getAlgorithm());
     case OctavesModelRoles::AlgorithmValid:
         return element.isAlgorithmValid();
     case OctavesModelRoles::Color:
