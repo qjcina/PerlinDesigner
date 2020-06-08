@@ -10,6 +10,11 @@ NoiseIterator Octave2D::begin() const
     return NoiseIterator(mValues, mColor);
 }
 
+NoiseIterator Octave2D::end() const
+{
+    return NoiseIterator(mValues, mColor, mValues.size());
+}
+
 void Octave2D::setColor(const QColor& color)
 {
     mColor = color;

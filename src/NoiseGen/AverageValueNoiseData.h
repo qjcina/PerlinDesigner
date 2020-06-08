@@ -22,4 +22,5 @@ private:
     static QColor averageColor(const QColor& lhs, const QColor& rhs);
 
     PerlinNoise::PerlinArray mPerlinArray;
+    bool mBaseConstructed = false;
 };

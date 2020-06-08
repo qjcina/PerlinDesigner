@@ -25,8 +25,16 @@ QImage AverageValueNoiseData::getImage() const
 
 void AverageValueNoiseData::addOctave(const INoiseOctave& array)
 {
-    std::transform(mPerlinArray.begin(), mPerlinArray.end(), array.begin(), mPerlinArray.begin(),
-        averageColor);
+    if (mBaseConstructed)
+        std::transform(mPerlinArray.begin(), mPerlinArray.end(), array.begin(), mPerlinArray.begin(),
+            averageColor);
+    else {
+        int32_t colorIndex = 0;
+        for (const auto& color : array) {
+            mPerlinArray[colorIndex++] = color;
+            mBaseConstructed = true;
+        }
+    }
 }
 
 uint32_t AverageValueNoiseData::packColor(const QColor& color)

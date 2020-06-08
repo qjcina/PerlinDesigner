@@ -14,6 +14,9 @@ public:
     NoiseIterator& operator++();
     QColor operator*() const;
 
+    bool operator==(const NoiseIterator& other) const;
+    bool operator!=(const NoiseIterator& other) const;
+
 private:
     const PerlinNoise::ValuesArray& mValues;
     const QColor mColor;
