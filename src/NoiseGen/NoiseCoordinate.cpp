@@ -33,3 +33,15 @@ NoiseCoordinate::NoiseCoordinate(const std::pair<uint32_t, uint32_t>& coordinate
     : std::pair<uint32_t, uint32_t>(coordinates)
 {
 }
+
+float NoiseCoordinate::getValue(uint32_t valueIndex) const
+{
+    switch (valueIndex) {
+    case 0:
+        return static_cast<float>(this->first) / PerlinNoise::PerlinArraySize;
+    case 1:
+        return static_cast<float>(this->second) / PerlinNoise::PerlinArraySize;
+    default:
+        return 0;
+    }
+}
