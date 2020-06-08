@@ -19,9 +19,13 @@ std::unique_ptr<IImageData> PerlinDataFactory::getData(const std::vector<OctaveS
         octave.setColor(octaveSettings.getColor());
         NoiseCoordinate coordinate;
         const auto octaveAlgorithm = octaveSettings.getAlgorithm();
+
+        if (!octaveAlgorithm)
+            continue;
+
         do {
             octave.setValue(coordinate, octaveAlgorithm->getValue(coordinate));
-
+            coordinate.next();
         } while (coordinate.hasNext());
 
         noiseData->addOctave(octave);

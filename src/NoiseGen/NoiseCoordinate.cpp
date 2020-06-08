@@ -16,18 +16,17 @@ bool NoiseCoordinate::hasNext() const
     return this->first < PerlinNoise::PerlinArraySize && this->second < PerlinNoise::PerlinArraySize;
 }
 
-std::unique_ptr<INoiseCoordinate> NoiseCoordinate::next() const
+void NoiseCoordinate::next()
 {
     std::pair<uint32_t, uint32_t> newCoordinate = *this;
 
-    if (newCoordinate.second < PerlinNoise::PerlinArraySize) {
+    if (newCoordinate.second < PerlinNoise::PerlinArraySize - 1) {
         newCoordinate.second++;
     } else {
         newCoordinate.first++;
         newCoordinate.second = 0;
     }
-
-    return std::unique_ptr<NoiseCoordinate>(new NoiseCoordinate(newCoordinate));
+    *this = NoiseCoordinate(newCoordinate);
 }
 
 NoiseCoordinate::NoiseCoordinate(const std::pair<uint32_t, uint32_t>& coordinates)

@@ -9,5 +9,5 @@ public:
 
     virtual NoiseCoordinateIndex getIndex() const = 0;
     virtual bool hasNext() const = 0;
-    virtual std::unique_ptr<INoiseCoordinate> next() const = 0;
+    virtual void next() = 0;
 };

@@ -10,13 +10,17 @@ AverageValueNoiseData::AverageValueNoiseData() = default;
 
 QImage AverageValueNoiseData::getImage() const
 {
-    std::vector<uint32_t>* colors = new std::vector<uint32_t>();
-    std::transform(mPerlinArray.begin(), mPerlinArray.end(), std::back_inserter(*colors),
-        packColor);
+    std::vector<uint8_t>* colors = new std::vector<uint8_t>();
+    for (const auto& perlinElement : mPerlinArray) {
+        colors->push_back(perlinElement.blue());
+        colors->push_back(perlinElement.green());
+        colors->push_back(perlinElement.red());
+        colors->push_back(perlinElement.alpha());
+    }
 
-    return QImage(reinterpret_cast<uint8_t*>(colors->data()),
+    return QImage(colors->data(),
         PerlinNoise::PerlinArraySize, PerlinNoise::PerlinArraySize,
-        QImage::Format_RGB32);
+        QImage::Format_ARGB32);
 }
 
 void AverageValueNoiseData::addOctave(const INoiseOctave& array)

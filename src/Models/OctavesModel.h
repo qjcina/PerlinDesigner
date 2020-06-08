@@ -1,9 +1,11 @@
 #pragma once
 
+#include "IOctavesModel.h"
 #include "OctaveSettings/OctaveSettingsEntry.h"
+
 #include <QAbstractListModel>
 
-class OctavesModel : public QAbstractListModel {
+class OctavesModel : public IOctavesModel {
     Q_OBJECT
 
     static constexpr const qint32 MAX_OCTAVES = 128;
@@ -27,6 +29,8 @@ public:
     Q_INVOKABLE void addOctave();
     Q_INVOKABLE void removeOctave();
     Q_INVOKABLE void setOctaveData(qint32 octaveIndex, const OctavesModelRoles& role, const QString& value);
+
+    const std::vector<OctaveSettingsEntry>& getOctaves() const override;
 
 private:
     bool isValidIndex(qint32 index) const;

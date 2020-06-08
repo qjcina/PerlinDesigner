@@ -10,7 +10,7 @@ public:
 
     NoiseCoordinateIndex getIndex() const override;
     bool hasNext() const override;
-    std::unique_ptr<INoiseCoordinate> next() const override;
+    void next() override;
 
 private:
     NoiseCoordinate(const std::pair<uint32_t, uint32_t>& coordinates);

@@ -17,6 +17,7 @@ set(HEADER_FILES
     src/GUI/IImagePainter.h
     src/GUI/ImagePainter.h
     src/GUI/ImagePainterManager.h
+    src/GUI/ImagePainterAdapter.h
 
     src/NoiseGen/AverageValueNoiseData.h
     src/NoiseGen/Octave2D.h
@@ -35,8 +36,10 @@ set(HEADER_FILES
     src/OctaveSettings/PerlinDataFactory.h
 
     src/Models/OctavesModel.h
+    src/Models/IOctavesModel.h
 
     src/Utils/QMLPointer.h
+    src/Utils/AbstractSingleton.h
 
     src/CommonTypes.h
 )
@@ -47,6 +50,7 @@ set(SOURCE_FILES
     src/GUI/qml.qrc
     src/GUI/ImagePainter.cpp
     src/GUI/ImagePainterManager.cpp
+    src/GUI/ImagePainterAdapter.cpp
 
     src/NoiseGen/AverageValueNoiseData.cpp
     src/NoiseGen/Octave2D.cpp

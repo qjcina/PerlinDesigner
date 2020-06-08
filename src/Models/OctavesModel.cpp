@@ -86,6 +86,11 @@ void OctavesModel::setOctaveData(qint32 octaveIndex, const OctavesModel::Octaves
     }
 }
 
+const std::vector<OctaveSettingsEntry>& OctavesModel::getOctaves() const
+{
+    return mOctaves;
+}
+
 bool OctavesModel::isValidIndex(qint32 index) const
 {
     return index >= 0 && index < static_cast<qint32>(mOctaves.size());

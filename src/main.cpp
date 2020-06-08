@@ -3,14 +3,20 @@
 #include <QQmlContext>
 
 #include "GUI/ImagePainter.h"
+#include "GUI/ImagePainterAdapter.h"
+#include "GUI/ImagePainterManager.h"
 #include "Models/OctavesModel.h"
 #include "OctaveSettings/OctaveSettingsEntry.h"
+#include "OctaveSettings/PerlinDataFactory.h"
 
 int main(int argc, char* argv[])
 {
     QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
 
     QGuiApplication app(argc, argv);
+
+    auto octavesModel = std::make_shared<OctavesModel>();
+    const auto imagePainterAdapter = std::make_unique<ImagePainterAdapter>(octavesModel, std::make_unique<PerlinDataFactory>());
 
     qmlRegisterType<ImagePainter>("ImagePainter", 1, 0, "ImagePainter");
     qmlRegisterType<OctavesModel>("OctavesModel", 1, 0, "OctavesModel");
@@ -25,7 +31,7 @@ int main(int argc, char* argv[])
         },
         Qt::QueuedConnection);
 
-    engine.rootContext()->setContextProperty("OctavesModelInstance", new OctavesModel());
+    engine.rootContext()->setContextProperty("OctavesModelInstance", octavesModel.get());
     engine.load(url);
 
     return app.exec();

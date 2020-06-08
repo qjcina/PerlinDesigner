@@ -12,5 +12,5 @@ NoiseAlgorithm::NoiseAlgorithm(const QString& algorithmString)
 
 float NoiseAlgorithm::getValue(const INoiseCoordinate& noiseCoordinate) const
 {
-    return 1;
+    return 0.5f;
 }
