@@ -14,4 +14,6 @@ public:
 
     virtual void setColor(const QColor& color) = 0;
     virtual void setValue(const NoiseCoordinate& position, const float value) = 0;
+
+    virtual void normalize() = 0;
 };

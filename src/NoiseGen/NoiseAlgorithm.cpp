@@ -3,8 +3,9 @@
 #include "CommonFunctions.h"
 #include "INoiseCoordinate.h"
 
+#include "NoiseEngine.h"
+
 #include <QDebug>
-#include <QJSEngine>
 
 NoiseAlgorithm::operator QString() const
 {
@@ -18,7 +19,7 @@ NoiseAlgorithm::NoiseAlgorithm(const QString& algorithmString)
 
 float NoiseAlgorithm::getValue(const INoiseCoordinate& noiseCoordinate) const
 {
-    static QJSEngine engine;
+    static NoiseEngine engine;
     if (mCompiledFunction.isNull())
         mCompiledFunction = engine.evaluate("(function(x,y) { return " + mAlgorithmString + " } )");
 
@@ -30,6 +31,6 @@ float NoiseAlgorithm::getValue(const INoiseCoordinate& noiseCoordinate) const
         args << noiseCoordinate.getValue(0) << noiseCoordinate.getValue(1);
 
         QJSValue outputValue = mCompiledFunction.call(args);
-        return normalize(outputValue.toNumber());
+        return outputValue.toNumber();
     }
 }

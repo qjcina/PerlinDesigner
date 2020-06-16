@@ -39,9 +39,9 @@ float NoiseCoordinate::getValue(uint32_t valueIndex) const
 {
     switch (valueIndex) {
     case 0:
-        return normalize(static_cast<float>(this->first) / PerlinNoise::PerlinArraySize);
+        return CommonFunctions::clamp(static_cast<float>(this->first) / PerlinNoise::PerlinArraySize, 0, 1);
     case 1:
-        return normalize(static_cast<float>(this->second) / PerlinNoise::PerlinArraySize);
+        return CommonFunctions::clamp(static_cast<float>(this->second) / PerlinNoise::PerlinArraySize, 0, 1);
     default:
         return 0;
     }

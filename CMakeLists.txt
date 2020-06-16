@@ -29,6 +29,8 @@ set(HEADER_FILES
     src/NoiseGen/NoiseIterator.h
     src/NoiseGen/NoiseCoordinate.h
     src/NoiseGen/NoiseAlgorithm.h
+    src/NoiseGen/NoiseEngine.h
+    src/NoiseGen/MathPD.h
 
     src/OctaveSettings/IOctaveSetting.h
     src/OctaveSettings/IDataFactory.h
@@ -59,6 +61,8 @@ set(SOURCE_FILES
     src/NoiseGen/NoiseIterator.cpp
     src/NoiseGen/NoiseCoordinate.cpp
     src/NoiseGen/NoiseAlgorithm.cpp
+    src/NoiseGen/NoiseEngine.cpp
+    src/NoiseGen/MathPD.cpp
 
     src/OctaveSettings/OctaveSettingsEntry.cpp
     src/OctaveSettings/PerlinDataFactory.cpp
