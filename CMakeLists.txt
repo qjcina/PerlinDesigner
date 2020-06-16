@@ -29,6 +29,8 @@ set(HEADER_FILES
     src/NoiseGen/NoiseIterator.h
     src/NoiseGen/NoiseCoordinate.h
     src/NoiseGen/NoiseAlgorithm.h
+    src/NoiseGen/NoiseEngine.h
+    src/NoiseGen/MathPD.h
 
     src/OctaveSettings/IOctaveSetting.h
     src/OctaveSettings/IDataFactory.h
@@ -42,6 +44,7 @@ set(HEADER_FILES
     src/Utils/AbstractSingleton.h
 
     src/CommonTypes.h
+    src/CommonFunctions.h
 )
 
 set(SOURCE_FILES
@@ -58,6 +61,8 @@ set(SOURCE_FILES
     src/NoiseGen/NoiseIterator.cpp
     src/NoiseGen/NoiseCoordinate.cpp
     src/NoiseGen/NoiseAlgorithm.cpp
+    src/NoiseGen/NoiseEngine.cpp
+    src/NoiseGen/MathPD.cpp
 
     src/OctaveSettings/OctaveSettingsEntry.cpp
     src/OctaveSettings/PerlinDataFactory.cpp
@@ -72,6 +77,7 @@ add_executable(PerlinDesigner
 
 target_include_directories(PerlinDesigner PRIVATE
     src/
+    external/
 )
 
 target_compile_definitions(PerlinDesigner

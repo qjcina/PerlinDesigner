@@ -1,6 +1,7 @@
 #pragma once
 
 #include "INoiseAlgorithm.h"
+#include <QJSValue>
 #include <QString>
 
 class INoiseCoordinate;
@@ -15,4 +16,5 @@ public:
 
 private:
     const QString mAlgorithmString;
+    mutable QJSValue mCompiledFunction = QJSValue(QJSValue::NullValue);
 };

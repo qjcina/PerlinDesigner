@@ -28,6 +28,7 @@ std::unique_ptr<IImageData> PerlinDataFactory::getData(const std::vector<OctaveS
             coordinate.next();
         } while (coordinate.hasNext());
 
+        octave.normalize();
         noiseData->addOctave(octave);
     }
 

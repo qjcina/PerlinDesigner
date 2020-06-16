@@ -1,5 +1,6 @@
 #include "NoiseCoordinate.h"
 
+#include "CommonFunctions.h"
 #include "CommonTypes.h"
 
 NoiseCoordinate::NoiseCoordinate()
@@ -32,4 +33,16 @@ void NoiseCoordinate::next()
 NoiseCoordinate::NoiseCoordinate(const std::pair<uint32_t, uint32_t>& coordinates)
     : std::pair<uint32_t, uint32_t>(coordinates)
 {
+}
+
+float NoiseCoordinate::getValue(uint32_t valueIndex) const
+{
+    switch (valueIndex) {
+    case 0:
+        return CommonFunctions::clamp(static_cast<float>(this->first) / PerlinNoise::PerlinArraySize, 0, 1);
+    case 1:
+        return CommonFunctions::clamp(static_cast<float>(this->second) / PerlinNoise::PerlinArraySize, 0, 1);
+    default:
+        return 0;
+    }
 }

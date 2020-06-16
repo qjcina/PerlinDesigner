@@ -16,6 +16,8 @@ public:
     void setColor(const QColor& color) override;
     void setValue(const NoiseCoordinate& position, const float value) override;
 
+    void normalize() override;
+
 private:
     QColor mColor;
     PerlinNoise::ValuesArray mValues;
