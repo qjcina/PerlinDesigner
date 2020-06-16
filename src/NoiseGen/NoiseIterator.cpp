@@ -21,7 +21,7 @@ NoiseIterator& NoiseIterator::operator++()
 QColor NoiseIterator::operator*() const
 {
     float value = mValues[mIndex];
-    return QColor(value * mColor.red(), value * mColor.green(), value * mColor.blue());
+    return QColor(value * mColor.red(), value * mColor.green(), value * mColor.blue(), mColor.alpha() * value);
 }
 
 bool NoiseIterator::operator==(const NoiseIterator& other) const

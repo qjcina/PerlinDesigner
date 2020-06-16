@@ -1,5 +1,6 @@
 #include "MathPD.h"
 
+#include <PerlinNoise/PerlinNoise.hpp>
 #include <QDebug>
 #include <random>
 
@@ -7,12 +8,12 @@ MathPD::MathPD() = default;
 
 float MathPD::perlinNoise(float xValue, float yValue) const
 {
-    return 1.0f;
+    siv::BasicPerlinNoise<float> perlinNoiseObject;
+    return perlinNoiseObject.noise2D_0_1(xValue, yValue);
 }
 
 float MathPD::whiteNoise(float xValue, float yValue) const
 {
-    qDebug() << getSeed(xValue, yValue);
     std::mt19937 twister(getSeed(xValue, yValue));
     static std::uniform_int_distribution<int32_t> distibution(0, 1);
     return static_cast<float>(distibution(twister));

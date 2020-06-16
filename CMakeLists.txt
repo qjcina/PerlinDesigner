@@ -77,6 +77,7 @@ add_executable(PerlinDesigner
 
 target_include_directories(PerlinDesigner PRIVATE
     src/
+    external/
 )
 
 target_compile_definitions(PerlinDesigner
