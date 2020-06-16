@@ -1,5 +1,6 @@
 #include "NoiseCoordinate.h"
 
+#include "CommonFunctions.h"
 #include "CommonTypes.h"
 
 NoiseCoordinate::NoiseCoordinate()
@@ -38,9 +39,9 @@ float NoiseCoordinate::getValue(uint32_t valueIndex) const
 {
     switch (valueIndex) {
     case 0:
-        return static_cast<float>(this->first) / PerlinNoise::PerlinArraySize;
+        return normalize(static_cast<float>(this->first) / PerlinNoise::PerlinArraySize);
     case 1:
-        return static_cast<float>(this->second) / PerlinNoise::PerlinArraySize;
+        return normalize(static_cast<float>(this->second) / PerlinNoise::PerlinArraySize);
     default:
         return 0;
     }

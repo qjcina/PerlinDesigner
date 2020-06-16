@@ -42,6 +42,7 @@ set(HEADER_FILES
     src/Utils/AbstractSingleton.h
 
     src/CommonTypes.h
+    src/CommonFunctions.h
 )
 
 set(SOURCE_FILES

@@ -1,5 +1,6 @@
 #include "NoiseAlgorithm.h"
 
+#include "CommonFunctions.h"
 #include "INoiseCoordinate.h"
 
 #include <QDebug>
@@ -22,13 +23,13 @@ float NoiseAlgorithm::getValue(const INoiseCoordinate& noiseCoordinate) const
         mCompiledFunction = engine.evaluate("(function(x,y) { return " + mAlgorithmString + " } )");
 
     if (mCompiledFunction.isError()) {
-        qWarning() << mCompiledFunction.errorType();
+        qWarning() << "Warning:" << mCompiledFunction.errorType();
         return 0;
     } else {
         QJSValueList args;
         args << noiseCoordinate.getValue(0) << noiseCoordinate.getValue(1);
 
         QJSValue outputValue = mCompiledFunction.call(args);
-        return outputValue.toNumber();
+        return normalize(outputValue.toNumber());
     }
 }
