@@ -13,6 +13,8 @@ ImagePainterAdapter::ImagePainterAdapter(std::shared_ptr<IOctavesModel> octavesM
     , mDataFactory(std::move(dataFactory))
 {
     connect(octavesModel.get(), &QAbstractItemModel::dataChanged, this, &ImagePainterAdapter::updateImage);
+    connect(octavesModel.get(), &QAbstractItemModel::rowsInserted, this, &ImagePainterAdapter::updateImage);
+    connect(octavesModel.get(), &QAbstractItemModel::rowsRemoved, this, &ImagePainterAdapter::updateImage);
 }
 
 void ImagePainterAdapter::updateImage() const
@@ -23,7 +25,6 @@ void ImagePainterAdapter::updateImage() const
     if (auto painter = ImagePainterManager::instance()->getPainter()) {
         const auto& octaves = mOctavesModel->getOctaves();
         if (auto imageData = mDataFactory->getData(octaves)) {
-            qDebug() << "settingImage";
             painter->setImage(imageData->getImage());
         }
     }

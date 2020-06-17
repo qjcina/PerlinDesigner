@@ -91,12 +91,12 @@ Window {
             }
 
             Button {
-                text: "Remove octave"
+                text: "Clear"
                 width: octavesControls.width / 2 - octavesControls.spacing / 2
                 height: octavesControls.height
 
                 onClicked: {
-                    OctavesModelInstance.removeOctave();
+                    OctavesModelInstance.clearOctaves();
                 }
             }
         }

@@ -53,14 +53,20 @@ void OctavesModel::addOctave()
     }
 }
 
-void OctavesModel::removeOctave()
+void OctavesModel::removeOctave(quint32 index)
 {
-    if (mOctaves.size() > 0) {
-        const auto position = mOctaves.size();
-        beginRemoveRows(QModelIndex(), position, position);
-        mOctaves.resize(mOctaves.size() - 1);
+    if (mOctaves.size() > index) {
+        beginRemoveRows(QModelIndex(), index, index);
+        mOctaves.erase(mOctaves.begin() + index);
         endRemoveRows();
     }
+}
+
+void OctavesModel::clearOctaves()
+{
+    beginRemoveRows(QModelIndex(), 0, mOctaves.size() - 1);
+    mOctaves.clear();
+    endRemoveRows();
 }
 
 void OctavesModel::setOctaveData(qint32 octaveIndex, const OctavesModel::OctavesModelRoles& role, const QString& value)

@@ -27,7 +27,8 @@ public:
     Q_ENUM(OctavesModelRoles)
 
     Q_INVOKABLE void addOctave();
-    Q_INVOKABLE void removeOctave();
+    Q_INVOKABLE void removeOctave(quint32 index);
+    Q_INVOKABLE void clearOctaves();
     Q_INVOKABLE void setOctaveData(qint32 octaveIndex, const OctavesModelRoles& role, const QString& value);
 
     const std::vector<OctaveSettingsEntry>& getOctaves() const override;

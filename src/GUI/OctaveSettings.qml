@@ -16,7 +16,7 @@ Rectangle {
     border.color: "#20000000"
     border.width: width * 0.003
 
-    height: elementHeight * 4 + settingsColumn.spacing * 3
+    height: colorField.height + algorithmField.height + buttonsRow.height + settingsColumn.spacing * 4
 
     Column {
         id: settingsColumn
@@ -47,15 +47,36 @@ Rectangle {
             placeholderText: qsTr("Algorithm")
 
             width: elementWidth
-            height: elementHeight * 3
+            height: elementHeight * 2
 
             onEditingFinished: OctavesModelInstance.setOctaveData(index, OctavesModel.Algorihm, text);
 
             background: ItemBackground {}
+            text: "x + y"
+
+            Component.onCompleted: onEditingFinished()
 
             ErrorSign {
                 height: elementHeight * 0.5
                 displaySign: !root.isAlgorithmValid
+            }
+        }
+
+        Row {
+            id: buttonsRow
+            width: elementWidth
+            height: elementHeight
+
+            spacing: width / 15
+
+            Button {
+                text: "X"
+                width: elementHeight
+                height: elementHeight
+
+                onClicked: {
+                    OctavesModelInstance.removeOctave(index);
+                }
             }
         }
     }
