@@ -6,26 +6,50 @@
 #include "OctaveSettings/IDataFactory.h"
 
 #include <QAbstractItemModel>
-#include <QImage>
+#include <QtConcurrent/QtConcurrentRun>
 
 ImagePainterAdapter::ImagePainterAdapter(std::shared_ptr<IOctavesModel> octavesModel, std::unique_ptr<IDataFactory>&& dataFactory)
     : mOctavesModel(octavesModel)
     , mDataFactory(std::move(dataFactory))
 {
-    connect(octavesModel.get(), &QAbstractItemModel::dataChanged, this, &ImagePainterAdapter::updateImage);
-    connect(octavesModel.get(), &QAbstractItemModel::rowsInserted, this, &ImagePainterAdapter::updateImage);
-    connect(octavesModel.get(), &QAbstractItemModel::rowsRemoved, this, &ImagePainterAdapter::updateImage);
+    connect(octavesModel.get(), &QAbstractItemModel::dataChanged, this, &ImagePainterAdapter::queueUpdate);
+    connect(octavesModel.get(), &QAbstractItemModel::rowsInserted, this, &ImagePainterAdapter::queueUpdate);
+    connect(octavesModel.get(), &QAbstractItemModel::rowsRemoved, this, &ImagePainterAdapter::queueUpdate);
+
+    mDelayTimer.setInterval(TIMER_DELAY);
+    mDelayTimer.setSingleShot(true);
+    mDelayTimer.callOnTimeout(this, &ImagePainterAdapter::updateImage);
+
+    connect(&mImageWatcher, &QFutureWatcher<QImage>::finished, this, &ImagePainterAdapter::setPainterImage);
 }
 
-void ImagePainterAdapter::updateImage() const
+void ImagePainterAdapter::updateImage()
+{
+    QFuture<QImage> image = QtConcurrent::run(this, &ImagePainterAdapter::getImage);
+    mImageWatcher.setFuture(image);
+}
+
+void ImagePainterAdapter::queueUpdate()
+{
+    mDelayTimer.start();
+}
+
+QImage ImagePainterAdapter::getImage() const
 {
     if (!mOctavesModel)
-        return;
+        return QImage();
 
+    const auto& octaves = mOctavesModel->getOctaves();
+    if (auto imageData = mDataFactory->getData(octaves)) {
+        return imageData->getImage();
+    }
+    return QImage();
+}
+
+void ImagePainterAdapter::setPainterImage() const
+{
     if (auto painter = ImagePainterManager::instance()->getPainter()) {
-        const auto& octaves = mOctavesModel->getOctaves();
-        if (auto imageData = mDataFactory->getData(octaves)) {
-            painter->setImage(imageData->getImage());
-        }
+        QImage image = mImageWatcher.future().result();
+        painter->setImage(std::move(image));
     }
 }
