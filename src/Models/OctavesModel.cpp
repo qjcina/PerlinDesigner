@@ -3,9 +3,7 @@
 #include "NoiseGen/INoiseAlgorithm.h"
 #include <QDebug>
 
-OctavesModel::OctavesModel()
-{
-}
+OctavesModel::OctavesModel() = default;
 
 int OctavesModel::rowCount(const QModelIndex&) const
 {

@@ -10,12 +10,13 @@ Rectangle {
     readonly property real elementHeight: width * 0.16
 
     property bool isOctaveColorValid: true
+    property bool isAlgorithmValid: true
 
     color: "transparent"
     border.color: "#20000000"
     border.width: width * 0.003
 
-    height: elementHeight * 4 + settingsColumn.spacing
+    height: elementHeight * 4 + settingsColumn.spacing * 3
 
     Column {
         id: settingsColumn
@@ -33,16 +34,11 @@ Rectangle {
 
             onEditingFinished: OctavesModelInstance.setOctaveData(index, OctavesModel.Color, text);
 
-            background: Item {}
+            background: ItemBackground {}
 
-            Rectangle {
+            ErrorSign {
                 height: elementHeight * 0.5
-                width: height
-                anchors.right: colorField.right
-                anchors.verticalCenter: colorField.verticalCenter
-                color: "red"
-
-                visible: !root.isOctaveColorValid
+                displaySign: !root.isOctaveColorValid
             }
         }
 
@@ -55,7 +51,12 @@ Rectangle {
 
             onEditingFinished: OctavesModelInstance.setOctaveData(index, OctavesModel.Algorihm, text);
 
-            background: Item {}
+            background: ItemBackground {}
+
+            ErrorSign {
+                height: elementHeight * 0.5
+                displaySign: !root.isAlgorithmValid
+            }
         }
     }
 }

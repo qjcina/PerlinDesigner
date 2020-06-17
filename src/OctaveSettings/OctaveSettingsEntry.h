@@ -28,5 +28,4 @@ signals:
 private:
     QColor mColor;
     std::shared_ptr<INoiseAlgorithm> mAlgorithm;
-    bool mIsAlgorithmValid = true;
 };
