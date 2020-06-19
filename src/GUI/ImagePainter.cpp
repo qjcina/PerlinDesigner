@@ -20,7 +20,6 @@ void ImagePainter::paint(QPainter* painter)
     } else {
         painter->drawImage(boundingRect(), mImage, mImage.rect(),
             Qt::NoFormatConversion);
-        qDebug() << mImage;
     }
 }
 

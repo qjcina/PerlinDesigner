@@ -34,3 +34,8 @@ float NoiseAlgorithm::getValue(const INoiseCoordinate& noiseCoordinate) const
         return outputValue.toNumber();
     }
 }
+
+bool NoiseAlgorithm::isValid() const
+{
+    return !mCompiledFunction.isNull() && !mCompiledFunction.isError();
+}

@@ -20,6 +20,7 @@ int main(int argc, char* argv[])
 
     qmlRegisterType<ImagePainter>("ImagePainter", 1, 0, "ImagePainter");
     qmlRegisterType<OctavesModel>("OctavesModel", 1, 0, "OctavesModel");
+    qmlRegisterUncreatableType<IOctavesModel>("OctavesModel", 1, 0, "IOctavesModel", "Interface");
 
     QQmlApplicationEngine engine;
     const QUrl url(QStringLiteral("qrc:/main.qml"));

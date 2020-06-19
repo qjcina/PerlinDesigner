@@ -42,5 +42,5 @@ bool OctaveSettingsEntry::isColorValid() const
 
 bool OctaveSettingsEntry::isAlgorithmValid() const
 {
-    return mIsAlgorithmValid;
+    return mAlgorithm && mAlgorithm->isValid();
 }

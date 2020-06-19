@@ -14,7 +14,7 @@ Window {
         id: leftColumn
         width: rootWindow.width * 0.65
         height: rootWindow.height
-        color: "gray"        
+        color: "#F6F6F6"
 
         ImagePainter {
             id: perlinPreview
@@ -28,13 +28,24 @@ Window {
         }
     }
 
+    Rectangle
+    {
+        anchors.right: leftColumn.right
+        anchors.top: leftColumn.top
+        anchors.bottom: leftColumn.bottom
+
+        width: 2
+
+        color: "#E8E8E8"
+    }
+
     Rectangle {
         id: rightColumn
 
         width: rootWindow.width - leftColumn.width
         height: rootWindow.height
 
-        color: "white"
+        color: "#F6F6F6"
         anchors.left: leftColumn.right
 
         ListView {
@@ -54,6 +65,7 @@ Window {
                 width: octaves.width
 
                 isOctaveColorValid: r_ColorValid
+                isAlgorithmValid: r_AlgorithmValid
             }
         }
 
@@ -79,12 +91,12 @@ Window {
             }
 
             Button {
-                text: "Remove octave"
+                text: "Clear"
                 width: octavesControls.width / 2 - octavesControls.spacing / 2
                 height: octavesControls.height
 
                 onClicked: {
-                    OctavesModelInstance.removeOctave();
+                    OctavesModelInstance.clearOctaves();
                 }
             }
         }

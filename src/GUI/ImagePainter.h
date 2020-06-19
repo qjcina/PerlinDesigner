@@ -8,6 +8,7 @@
 class IImageData;
 
 class ImagePainter : public IImagePainter {
+    Q_OBJECT
 public:
     ImagePainter();
 
