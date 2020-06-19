@@ -3,5 +3,7 @@
         <file>main.qml</file>
         <file>OctaveSettings.qml</file>
         <file>Button.qml</file>
+        <file>ItemBackground.qml</file>
+        <file>ErrorSign.qml</file>
     </qresource>
 </RCC>

@@ -10,12 +10,21 @@ Rectangle {
     readonly property real elementHeight: width * 0.16
 
     property bool isOctaveColorValid: true
+    property bool isAlgorithmValid: true
 
     color: "transparent"
     border.color: "#20000000"
     border.width: width * 0.003
 
-    height: elementHeight * 4 + settingsColumn.spacing
+    height: colorField.height + algorithmField.height + buttonsRow.height + settingsColumn.spacing * 4
+
+    function updateOctave()
+    {
+        OctavesModelInstance.setOctaveData(index, OctavesModel.Algorihm, algorithmField.text);
+        OctavesModelInstance.setOctaveData(index, OctavesModel.Color, colorField.text);
+    }
+
+    Component.onCompleted: root.updateOctave()
 
     Column {
         id: settingsColumn
@@ -26,36 +35,62 @@ Rectangle {
 
         TextField {
             id: colorField
-            placeholderText: qsTr("Color")
+            text: "blue"
 
             width: elementWidth
             height: elementHeight
 
-            onEditingFinished: OctavesModelInstance.setOctaveData(index, OctavesModel.Color, text);
+            background: ItemBackground {}
 
-            background: Item {}
-
-            Rectangle {
+            ErrorSign {
                 height: elementHeight * 0.5
-                width: height
-                anchors.right: colorField.right
-                anchors.verticalCenter: colorField.verticalCenter
-                color: "red"
-
-                visible: !root.isOctaveColorValid
+                displaySign: !root.isOctaveColorValid
             }
         }
 
         TextArea {
             id: algorithmField
-            placeholderText: qsTr("Algorithm")
 
             width: elementWidth
-            height: elementHeight * 3
+            height: elementHeight * 2
 
-            onEditingFinished: OctavesModelInstance.setOctaveData(index, OctavesModel.Algorihm, text);
+            background: ItemBackground {}
+            text: "x + y"
 
-            background: Item {}
+            ErrorSign {
+                height: elementHeight * 0.5
+                displaySign: !root.isAlgorithmValid
+            }
+        }
+
+        Row {
+            id: buttonsRow
+            width: elementWidth
+            height: elementHeight
+
+            spacing: width / 15
+
+            Button {
+                text: "Delete"
+                width: elementHeight * 2
+                height: elementHeight * 0.8
+
+                anchors.verticalCenter: buttonsRow.verticalCenter
+
+                onClicked: {
+                    OctavesModelInstance.removeOctave(index);
+                }
+            }
+
+            Button {
+                text: "Apply"
+                width: elementHeight * 2
+                height: elementHeight * 0.8
+
+                anchors.verticalCenter: buttonsRow.verticalCenter
+
+                onClicked: root.updateOctave()
+            }
         }
     }
 }

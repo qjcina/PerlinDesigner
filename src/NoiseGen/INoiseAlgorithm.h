@@ -7,4 +7,5 @@ class INoiseAlgorithm {
 public:
     virtual operator QString() const = 0;
     virtual float getValue(const INoiseCoordinate& noiseCoordinate) const = 0;
+    virtual bool isValid() const = 0;
 };

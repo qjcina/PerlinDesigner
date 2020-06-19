@@ -3,9 +3,7 @@
 #include "NoiseGen/INoiseAlgorithm.h"
 #include <QDebug>
 
-OctavesModel::OctavesModel()
-{
-}
+OctavesModel::OctavesModel() = default;
 
 int OctavesModel::rowCount(const QModelIndex&) const
 {
@@ -55,14 +53,20 @@ void OctavesModel::addOctave()
     }
 }
 
-void OctavesModel::removeOctave()
+void OctavesModel::removeOctave(quint32 index)
 {
-    if (mOctaves.size() > 0) {
-        const auto position = mOctaves.size();
-        beginRemoveRows(QModelIndex(), position, position);
-        mOctaves.resize(mOctaves.size() - 1);
+    if (mOctaves.size() > index) {
+        beginRemoveRows(QModelIndex(), index, index);
+        mOctaves.erase(mOctaves.begin() + index);
         endRemoveRows();
     }
+}
+
+void OctavesModel::clearOctaves()
+{
+    beginRemoveRows(QModelIndex(), 0, mOctaves.size() - 1);
+    mOctaves.clear();
+    endRemoveRows();
 }
 
 void OctavesModel::setOctaveData(qint32 octaveIndex, const OctavesModel::OctavesModelRoles& role, const QString& value)
@@ -74,7 +78,7 @@ void OctavesModel::setOctaveData(qint32 octaveIndex, const OctavesModel::Octaves
     switch (role) {
     case OctavesModelRoles::Algorihm:
         mOctaves[octaveIndex].setAlgorithm(value);
-        dataChanged(modelIndex, { OctavesModelRoles::Algorihm, OctavesModelRoles::AlgorithmValid });
+        dataChanged(modelIndex, { OctavesModelRoles::Algorihm });
         break;
     case OctavesModelRoles::Color:
         mOctaves[octaveIndex].setColor(value);
@@ -84,6 +88,14 @@ void OctavesModel::setOctaveData(qint32 octaveIndex, const OctavesModel::Octaves
         // Role not assignable
         break;
     }
+}
+
+void OctavesModel::updateAlgorithmValid()
+{
+    // All algorithms have to be checked at once, because they get compiled asynchronously
+    // and they have valid state only after whole image is completed
+    for (qint32 index = 0; index < rowCount(QModelIndex()); index++)
+        dataChanged(this->index(index), { OctavesModelRoles::AlgorithmValid });
 }
 
 const std::vector<OctaveSettingsEntry>& OctavesModel::getOctaves() const

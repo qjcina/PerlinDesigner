@@ -11,6 +11,7 @@ public:
     NoiseAlgorithm(const QString& algorithmString);
 
     float getValue(const INoiseCoordinate& noiseCoordinate) const override;
+    bool isValid() const override;
 
     operator QString() const override;
 
