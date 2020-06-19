@@ -18,6 +18,14 @@ Rectangle {
 
     height: colorField.height + algorithmField.height + buttonsRow.height + settingsColumn.spacing * 4
 
+    function updateOctave()
+    {
+        OctavesModelInstance.setOctaveData(index, OctavesModel.Algorihm, algorithmField.text);
+        OctavesModelInstance.setOctaveData(index, OctavesModel.Color, colorField.text);
+    }
+
+    Component.onCompleted: root.updateOctave()
+
     Column {
         id: settingsColumn
 
@@ -27,12 +35,10 @@ Rectangle {
 
         TextField {
             id: colorField
-            placeholderText: qsTr("Color")
+            text: "blue"
 
             width: elementWidth
             height: elementHeight
-
-            onEditingFinished: OctavesModelInstance.setOctaveData(index, OctavesModel.Color, text);
 
             background: ItemBackground {}
 
@@ -44,17 +50,12 @@ Rectangle {
 
         TextArea {
             id: algorithmField
-            placeholderText: qsTr("Algorithm")
 
             width: elementWidth
             height: elementHeight * 2
 
-            onEditingFinished: OctavesModelInstance.setOctaveData(index, OctavesModel.Algorihm, text);
-
             background: ItemBackground {}
             text: "x + y"
-
-            Component.onCompleted: onEditingFinished()
 
             ErrorSign {
                 height: elementHeight * 0.5
@@ -70,13 +71,25 @@ Rectangle {
             spacing: width / 15
 
             Button {
-                text: "X"
-                width: elementHeight
-                height: elementHeight
+                text: "Delete"
+                width: elementHeight * 2
+                height: elementHeight * 0.8
+
+                anchors.verticalCenter: buttonsRow.verticalCenter
 
                 onClicked: {
                     OctavesModelInstance.removeOctave(index);
                 }
+            }
+
+            Button {
+                text: "Apply"
+                width: elementHeight * 2
+                height: elementHeight * 0.8
+
+                anchors.verticalCenter: buttonsRow.verticalCenter
+
+                onClicked: root.updateOctave()
             }
         }
     }

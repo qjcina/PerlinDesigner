@@ -8,11 +8,26 @@
 #include <QAbstractItemModel>
 #include <QtConcurrent/QtConcurrentRun>
 
+namespace {
+static const std::array<IOctavesModel::OctavesModelRoles, 3> ACCEPTED_ROLES = {
+    IOctavesModel::OctavesModelRoles::Algorihm,
+    IOctavesModel::OctavesModelRoles::Color
+};
+}
+
 ImagePainterAdapter::ImagePainterAdapter(std::shared_ptr<IOctavesModel> octavesModel, std::unique_ptr<IDataFactory>&& dataFactory)
     : mOctavesModel(octavesModel)
     , mDataFactory(std::move(dataFactory))
 {
-    connect(octavesModel.get(), &QAbstractItemModel::dataChanged, this, &ImagePainterAdapter::queueUpdate);
+    connect(octavesModel.get(), &QAbstractItemModel::dataChanged, this, [&](const QModelIndex&, const QModelIndex&, const QVector<int> roles) {
+        for (const auto& acceptedRole : ACCEPTED_ROLES) {
+            if (roles.contains(static_cast<qint32>(acceptedRole))) {
+                // Update is only queued when one of ACCEPTED_ROLES is emitted
+                this->queueUpdate();
+            }
+        }
+    });
+
     connect(octavesModel.get(), &QAbstractItemModel::rowsInserted, this, &ImagePainterAdapter::queueUpdate);
     connect(octavesModel.get(), &QAbstractItemModel::rowsRemoved, this, &ImagePainterAdapter::queueUpdate);
 
@@ -21,11 +36,15 @@ ImagePainterAdapter::ImagePainterAdapter(std::shared_ptr<IOctavesModel> octavesM
     mDelayTimer.callOnTimeout(this, &ImagePainterAdapter::updateImage);
 
     connect(&mImageWatcher, &QFutureWatcher<QImage>::finished, this, &ImagePainterAdapter::setPainterImage);
+    connect(&mImageWatcher, &QFutureWatcher<QImage>::finished, octavesModel.get(), &IOctavesModel::updateAlgorithmValid);
 }
 
 void ImagePainterAdapter::updateImage()
 {
-    QFuture<QImage> image = QtConcurrent::run(this, &ImagePainterAdapter::getImage);
+    static QFuture<QImage> image;
+    if (image.isRunning())
+        image.cancel();
+    image = QtConcurrent::run(this, &ImagePainterAdapter::getImage);
     mImageWatcher.setFuture(image);
 }
 

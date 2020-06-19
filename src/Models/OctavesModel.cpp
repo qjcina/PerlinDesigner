@@ -78,7 +78,7 @@ void OctavesModel::setOctaveData(qint32 octaveIndex, const OctavesModel::Octaves
     switch (role) {
     case OctavesModelRoles::Algorihm:
         mOctaves[octaveIndex].setAlgorithm(value);
-        dataChanged(modelIndex, { OctavesModelRoles::Algorihm, OctavesModelRoles::AlgorithmValid });
+        dataChanged(modelIndex, { OctavesModelRoles::Algorihm });
         break;
     case OctavesModelRoles::Color:
         mOctaves[octaveIndex].setColor(value);
@@ -88,6 +88,14 @@ void OctavesModel::setOctaveData(qint32 octaveIndex, const OctavesModel::Octaves
         // Role not assignable
         break;
     }
+}
+
+void OctavesModel::updateAlgorithmValid()
+{
+    // All algorithms have to be checked at once, because they get compiled asynchronously
+    // and they have valid state only after whole image is completed
+    for (qint32 index = 0; index < rowCount(QModelIndex()); index++)
+        dataChanged(this->index(index), { OctavesModelRoles::AlgorithmValid });
 }
 
 const std::vector<OctaveSettingsEntry>& OctavesModel::getOctaves() const

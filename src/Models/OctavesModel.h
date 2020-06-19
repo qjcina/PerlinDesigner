@@ -17,19 +17,11 @@ public:
     QVariant data(const QModelIndex& index, int role) const override;
     QHash<int, QByteArray> roleNames() const override;
 
-    enum class OctavesModelRoles {
-        Algorihm = Qt::UserRole,
-        AlgorithmValid,
-        Color,
-        ColorValid
-    };
-
-    Q_ENUM(OctavesModelRoles)
-
     Q_INVOKABLE void addOctave();
     Q_INVOKABLE void removeOctave(quint32 index);
     Q_INVOKABLE void clearOctaves();
     Q_INVOKABLE void setOctaveData(qint32 octaveIndex, const OctavesModelRoles& role, const QString& value);
+    void updateAlgorithmValid() override;
 
     const std::vector<OctaveSettingsEntry>& getOctaves() const override;
 
